@@ -166,7 +166,21 @@ var initDb = function(callback) {
   }
 
 app.get('/', function (req, res) {
-    res.render('index.html', {});  
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    var col = db.collection('hp_users');
+    // Create a document with request IP and current time of request
+    //col.insert({ip: req.ip, date: Date.now()});
+    col.count(function(err, count){
+      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
+    });
+  } else {
+    res.render('index.html', { pageCountMessage : null});
+  }
 });
 
 app.get('/pagecount', function (req, res) {
@@ -176,7 +190,7 @@ app.get('/pagecount', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-    db.collection('hp_users').count(function(err, count ){
+    db.collection('counts').count(function(err, count ){
       res.send('{ pageCount: ' + count + '}');
     });
   } else {
