@@ -135,7 +135,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
     // Provide UI label that excludes user id and pw
     mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
     mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
-    console.log("Conn String URL:=> " + mongoURL);
+    
   }
 }
 var db = null,
@@ -173,6 +173,7 @@ app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if (!db) {
+    console.log("Conn String URL:=> " ,mongoURL);
     initDb(function(err){});
   }
   if (db) {
