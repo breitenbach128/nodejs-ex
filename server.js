@@ -122,6 +122,8 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
       mongoUser = process.env[mongoServiceName + '_USER'];
       //hardcode the dbname to game2
       mongoDatabase = "game2";
+      //hardcode the username to admin
+      mongoUser = "admin";
 
   if (mongoHost && mongoPort && mongoDatabase) {
     mongoURLLabel = mongoURL = 'mongodb://';
@@ -190,7 +192,7 @@ app.get('/pagecount', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-    db.collection('counts').count(function(err, count ){
+    db.collection('hp_users').count(function(err, count ){
       res.send('{ pageCount: ' + count + '}');
     });
   } else {
