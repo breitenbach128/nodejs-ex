@@ -1,10 +1,30 @@
 //  OpenShift sample Node application
 var express = require('express'),
+    fs      = require('fs'),
+    mongojs = require('mongojs'),
+    passport = require('passport'),
+    util = require('util'),
     app     = express(),
     morgan  = require('morgan');
     
 Object.assign=require('object-assign')
 
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+//Directories
+var publicDirectory = "public_html";
+//Server variables for gameplay
+var players = [];
+var games = []; //rooms
+var online = [];
+var connection_string = '127.0.0.1:27017/GAME';
+var gamesizelimit = 10;
+
+//Disconnection Variables
+var dcCacheRetentionTime = 5;//5 Minutes to retain dc'd players.
+var dcCache = new Array();//Disconnected players for reconnection tracking
+var cleanerArray = new Array();
+
+//Morgan, HTML and EJS rendering and config
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
 

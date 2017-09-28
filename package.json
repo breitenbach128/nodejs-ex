@@ -1,7 +1,7 @@
 {
   "name": "nodejs-ex",
   "version": "0.0.1",
-  "description": "Node.js sample app for OpenShift 3",
+  "description": "Impact MP Server for Hardpoint",
   "main": "server.js",
   "dependencies": {
     "chai": "^3.5.0",
@@ -28,12 +28,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/openshift/nodejs-ex.git"
+    "url": "https://github.com/breitenbach128/nodejs-ex"
   },
-  "author": "Steve Speicher <sspeiche@gmail.com>",
+  "author": "Ben Breitenbach <breitenbach128@gmail.com>",
   "license": "CC-BY-1.0",
   "bugs": {
-    "url": "http://github.com/openshift/nodejs-ex/issues"
+    "url": "https://github.com/breitenbach128/nodejs-ex/issues"
   },
-  "homepage": "http://github.com/openshift/nodejs-ex"
+  "homepage": "https://github.com/breitenbach128/nodejs-ex"
 }
