@@ -163,6 +163,7 @@ var initDb = function(callback) {
 };
 //Init DB
   if (!db) {
+    console.log("Conn String URL:=> " ,mongoURL);
     initDb(function(err){});
   }else{
     var hp_users_col = db.collection('hp_users');
@@ -173,7 +174,7 @@ app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if (!db) {
-    console.log("Conn String URL:=> " ,mongoURL);
+    
     initDb(function(err){});
   }
   if (db) {
