@@ -120,6 +120,8 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
       mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
       mongoPassword = process.env[mongoServiceName + '_PASSWORD']
       mongoUser = process.env[mongoServiceName + '_USER'];
+      //hardcode the dbname to game2
+      mongoDatabase = "game2";
 
   if (mongoHost && mongoPort && mongoDatabase) {
     mongoURLLabel = mongoURL = 'mongodb://';
@@ -155,23 +157,16 @@ var initDb = function(callback) {
     console.log('Connected to MongoDB at: %s', mongoURL);
   });
 };
-
-app.get('/', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
+//Init DB
   if (!db) {
     initDb(function(err){});
+  }else{
+    var hp_users_col = db.collection('hp_users');
+    var hp_matches_col = db.collection('hp_matches');
   }
-  if (db) {
-    var col = db.collection('counts');
-    // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
-    });
-  } else {
-    res.render('index.html', { pageCountMessage : null});
-  }
+
+app.get('/', function (req, res) {
+    res.render('index.html', {});  
 });
 
 app.get('/pagecount', function (req, res) {
@@ -181,7 +176,7 @@ app.get('/pagecount', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-    db.collection('counts').count(function(err, count ){
+    db.collection('hp_users').count(function(err, count ){
       res.send('{ pageCount: ' + count + '}');
     });
   } else {
