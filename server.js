@@ -122,6 +122,8 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
       mongoUser = process.env[mongoServiceName + '_USER'];
       //hardcode the dbname to game2
       mongoDatabase = "game2";
+      //Hardcode the password temp
+      mongoPassword = process.env[mongoServiceName + '_ADMIN_PASSWORD'];
       //hardcode the username to admin
       mongoUser = "admin";
 
