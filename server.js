@@ -138,6 +138,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
     
   }
 }
+console.log("Conn String URL BEFORE:=> " ,mongoURL);
 var db = null,
     dbDetails = new Object();
 
@@ -163,7 +164,7 @@ var initDb = function(callback) {
 };
 //Init DB
   if (!db) {
-    console.log("Conn String URL:=> " ,mongoURL);
+    console.log("Conn String URL DURING CALL:=> " ,mongoURL);
     initDb(function(err){});
   }else{
     var hp_users_col = db.collection('hp_users');
